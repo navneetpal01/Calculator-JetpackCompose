@@ -1,12 +1,94 @@
 package com.example.calculator.screen.home
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
+import com.example.calculator.screen.component.MainContent
+import com.example.calculator.screen.component.SheetContent
+import com.example.calculator.ui.theme.BottomSheetBackground
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
-    val scaffoldState = rememberBottomSheetScaffoldState()
+fun HomeScreen() {
+    val scaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = rememberStandardBottomSheetState(initialValue = SheetValue.Hidden)
+    )
+
+    BottomSheet(
+        state = scaffoldState
+    ) {
+        MainContent()
+    }
+
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun BottomSheet(
+    state: BottomSheetScaffoldState,
+    mainContent: @Composable () -> Unit
+) {
+
+    val scope = rememberCoroutineScope()
+
+
+    BottomSheetScaffold(
+        scaffoldState = state,
+        sheetPeekHeight = 36.dp,
+        sheetContent = {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.76f)
+                    .background(BottomSheetBackground)
+            ){
+                SheetContent(
+                    isExpanded = state.bottomSheetState.hasExpandedState,
+                    onBack = {
+                        scope.launch {
+                            state.bottomSheetState.hide()
+                        }
+                    }
+                )
+            }
+        },
+        modifier = Modifier
+            .systemBarsPadding()
+            .fillMaxSize()
+    ) {
+        mainContent.invoke()
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
