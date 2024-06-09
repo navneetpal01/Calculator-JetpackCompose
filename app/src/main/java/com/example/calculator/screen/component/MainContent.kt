@@ -19,8 +19,10 @@ fun MainContentImpl(
 
 ){
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+        ,
+        verticalArrangement = Arrangement.Center,
     ){
 
     }

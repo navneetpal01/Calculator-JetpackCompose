@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
@@ -28,7 +29,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen() {
     val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = rememberStandardBottomSheetState(initialValue = SheetValue.Hidden)
+        bottomSheetState = SheetState(initialValue = SheetValue.PartiallyExpanded, skipPartiallyExpanded = false)
     )
 
     BottomSheet(
@@ -70,6 +71,7 @@ fun BottomSheet(
                 )
             }
         },
+
         modifier = Modifier
             .systemBarsPadding()
             .fillMaxSize()
