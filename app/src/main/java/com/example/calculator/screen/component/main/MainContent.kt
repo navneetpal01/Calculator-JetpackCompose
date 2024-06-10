@@ -1,19 +1,16 @@
-package com.example.calculator.screen.component
+package com.example.calculator.screen.component.main
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.constraintlayout.compose.MotionScene
 import com.example.calculator.screen.home.HomeUiEvent
@@ -25,19 +22,23 @@ import com.example.calculator.R
 
 @Composable
 fun MainContent(
+    fraction : Float,
     homeViewModel: HomeViewModel
 ) {
     val uiState by homeViewModel.uiState.collectAsState()
 
     MainContentImpl(
+        fraction = fraction,
         uiState = uiState,
         onEvent = homeViewModel::onEvent
     )
 }
 
 
+@OptIn(ExperimentalMotionApi::class)
 @Composable
 fun MainContentImpl(
+    fraction : Float,
     uiState: HomeUiState,
     onEvent: (HomeUiEvent) -> Unit
 ) {
@@ -59,12 +60,19 @@ fun MainContentImpl(
     ){
         MotionLayout(
             motionScene = MotionScene(content = motionScene),
-            progress = ,
+            progress = fraction,
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            ExpressionContent()
-
+            ExpressionContent(
+                modifier = Modifier
+                    .layoutId("expression_result"),
+                currentExpression = uiState.currentExpression,
+                result = uiState.result,
+                updateTextFieldValue = {value ->
+                    onEvent.invoke(HomeUiEvent.UpdateTextField(value))
+                }
+            )
             ButtonGrid()
         }
     }

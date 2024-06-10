@@ -1,4 +1,4 @@
-package com.example.calculator.screen.component
+package com.example.calculator.screen.component.sheet
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background

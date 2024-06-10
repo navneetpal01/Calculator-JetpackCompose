@@ -13,15 +13,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberBottomSheetScaffoldState
-import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.calculator.screen.component.MainContent
-import com.example.calculator.screen.component.SheetContent
+import com.example.calculator.core.extension.currentFraction
+import com.example.calculator.screen.component.main.MainContent
+import com.example.calculator.screen.component.sheet.SheetContent
 import com.example.calculator.ui.theme.BottomSheetBackground
 import kotlinx.coroutines.launch
 
@@ -38,7 +38,10 @@ fun HomeScreen(
     BottomSheet(
         state = scaffoldState
     ) {
-        MainContent(homeViewModel = homeViewModel)
+        MainContent(
+            fraction = scaffoldState.currentFraction,
+            homeViewModel = homeViewModel
+        )
     }
 
 }
