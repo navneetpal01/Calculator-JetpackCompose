@@ -32,7 +32,7 @@ fun SheetContent(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(32.dp)
+                .height(24.dp)
         ){
             Box(
                 modifier = Modifier

@@ -38,7 +38,7 @@ fun HomeScreen(
     BottomSheet(
         state = scaffoldState
     ) {
-        MainContent()
+        MainContent(homeViewModel = homeViewModel)
     }
 
 }
@@ -54,7 +54,7 @@ fun BottomSheet(
     
     BottomSheetScaffold(
         scaffoldState = state,
-        sheetPeekHeight = 36.dp,
+        sheetPeekHeight = 24.dp,
         sheetContent = {
             Box(
                 modifier = Modifier
