@@ -48,8 +48,7 @@ fun BottomSheet(
 ) {
 
     val scope = rememberCoroutineScope()
-
-
+    
     BottomSheetScaffold(
         scaffoldState = state,
         sheetPeekHeight = 36.dp,
@@ -65,11 +64,14 @@ fun BottomSheet(
                     isExpanded = state.bottomSheetState.hasExpandedState,
                     onBack = {
                         scope.launch {
-                            state.bottomSheetState.hide()
+                            state.bottomSheetState.partialExpand()
                         }
                     }
                 )
             }
+        },
+        sheetDragHandle = {
+
         },
 
         modifier = Modifier
