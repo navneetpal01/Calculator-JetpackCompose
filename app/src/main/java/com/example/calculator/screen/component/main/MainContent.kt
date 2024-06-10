@@ -73,7 +73,14 @@ fun MainContentImpl(
                     onEvent.invoke(HomeUiEvent.UpdateTextField(value))
                 }
             )
-            ButtonGrid()
+            ButtonGrid(
+                modifier = Modifier
+                    .layoutId("button_grid")
+                    .fillMaxWidth(),
+                onActionClick = {symbol ->
+
+                }
+            )
         }
     }
 
