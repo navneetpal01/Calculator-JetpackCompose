@@ -19,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.calculator.screen.component.MainContent
 import com.example.calculator.screen.component.SheetContent
 import com.example.calculator.ui.theme.BottomSheetBackground
@@ -27,7 +28,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    homeViewModel : HomeViewModel = hiltViewModel()
+) {
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = SheetState(initialValue = SheetValue.PartiallyExpanded, skipPartiallyExpanded = false)
     )
