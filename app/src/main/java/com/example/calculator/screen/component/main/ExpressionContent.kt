@@ -8,6 +8,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 @Composable
 fun ExpressionContent(
     modifier: Modifier = Modifier,
+    fraction : Float,
     currentExpression : TextFieldValue,
     result: String,
     updateTextFieldValue : (TextFieldValue) -> Unit

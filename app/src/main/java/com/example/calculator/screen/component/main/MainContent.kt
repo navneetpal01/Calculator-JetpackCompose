@@ -1,15 +1,18 @@
 package com.example.calculator.screen.component.main
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.constraintlayout.compose.MotionScene
@@ -17,6 +20,7 @@ import com.example.calculator.R
 import com.example.calculator.screen.home.HomeUiEvent
 import com.example.calculator.screen.home.HomeUiState
 import com.example.calculator.screen.home.HomeViewModel
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -44,7 +48,13 @@ fun MainContentImpl(
 
     val context = LocalContext.current
 
-    //
+    val focusManager = LocalFocusManager.current
+    LaunchedEffect(key1 = Unit) {
+        while (true){
+            delay(1000)
+            focusManager.clearFocus()
+        }
+    }
 
     val motionScene = remember {
         context.resources
@@ -66,6 +76,7 @@ fun MainContentImpl(
             ExpressionContent(
                 modifier = Modifier
                     .layoutId("expression_result"),
+                fraction = fraction,
                 currentExpression = uiState.currentExpression,
                 result = uiState.result,
                 updateTextFieldValue = { value ->
@@ -80,6 +91,9 @@ fun MainContentImpl(
                     if (symbol == "=" && uiState.currentExpression.text.isEmpty()) return@ButtonGrid
                     onEvent(HomeUiEvent.OnButtonActionClick(symbol))
 
+                    if (symbol == "=" && !(uiState.result == "" || uiState.result == "NaN")){
+                        Toast.makeText(context,"Saved in History",Toast.LENGTH_SHORT).show()
+                    }
 
                 }
             )
