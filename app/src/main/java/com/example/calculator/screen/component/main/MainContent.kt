@@ -13,16 +13,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.constraintlayout.compose.MotionScene
+import com.example.calculator.R
 import com.example.calculator.screen.home.HomeUiEvent
 import com.example.calculator.screen.home.HomeUiState
 import com.example.calculator.screen.home.HomeViewModel
-import com.example.calculator.R
-
 
 
 @Composable
 fun MainContent(
-    fraction : Float,
+    fraction: Float,
     homeViewModel: HomeViewModel
 ) {
     val uiState by homeViewModel.uiState.collectAsState()
@@ -38,7 +37,7 @@ fun MainContent(
 @OptIn(ExperimentalMotionApi::class)
 @Composable
 fun MainContentImpl(
-    fraction : Float,
+    fraction: Float,
     uiState: HomeUiState,
     onEvent: (HomeUiEvent) -> Unit
 ) {
@@ -57,7 +56,7 @@ fun MainContentImpl(
     Row(
         modifier = Modifier
             .fillMaxSize()
-    ){
+    ) {
         MotionLayout(
             motionScene = MotionScene(content = motionScene),
             progress = fraction,
@@ -69,7 +68,7 @@ fun MainContentImpl(
                     .layoutId("expression_result"),
                 currentExpression = uiState.currentExpression,
                 result = uiState.result,
-                updateTextFieldValue = {value ->
+                updateTextFieldValue = { value ->
                     onEvent.invoke(HomeUiEvent.UpdateTextField(value))
                 }
             )
@@ -77,14 +76,15 @@ fun MainContentImpl(
                 modifier = Modifier
                     .layoutId("button_grid")
                     .fillMaxWidth(),
-                onActionClick = {symbol ->
+                onActionClick = { symbol ->
+                    if (symbol == "=" && uiState.currentExpression.text.isEmpty()) return@ButtonGrid
+                    onEvent(HomeUiEvent.OnButtonActionClick(symbol))
+
 
                 }
             )
         }
     }
-
-
 
 
 }

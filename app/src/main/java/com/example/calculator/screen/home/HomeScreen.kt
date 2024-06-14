@@ -29,10 +29,13 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    homeViewModel : HomeViewModel = hiltViewModel()
+    homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = SheetState(initialValue = SheetValue.PartiallyExpanded, skipPartiallyExpanded = false)
+        bottomSheetState = SheetState(
+            initialValue = SheetValue.PartiallyExpanded,
+            skipPartiallyExpanded = false
+        )
     )
 
     BottomSheet(
@@ -54,7 +57,7 @@ fun BottomSheet(
 ) {
 
     val scope = rememberCoroutineScope()
-    
+
     BottomSheetScaffold(
         scaffoldState = state,
         sheetPeekHeight = 24.dp,
@@ -65,7 +68,7 @@ fun BottomSheet(
                     .fillMaxWidth()
                     .fillMaxHeight(0.76f)
                     .background(BottomSheetBackground)
-            ){
+            ) {
                 SheetContent(
                     isExpanded = state.bottomSheetState.hasExpandedState,
                     onBack = {
