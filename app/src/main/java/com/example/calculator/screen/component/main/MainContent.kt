@@ -69,14 +69,14 @@ fun MainContentImpl(
     ) {
         MotionLayout(
             motionScene = MotionScene(content = motionScene),
-            progress = fraction,
+            progress = 0.01f,
             modifier = Modifier
                 .fillMaxWidth()
         ) {
             ExpressionContent(
                 modifier = Modifier
                     .layoutId("expression_result"),
-                fraction = fraction,
+                fraction = 0.1f,
                 currentExpression = uiState.currentExpression,
                 result = uiState.result,
                 updateTextFieldValue = { value ->
@@ -90,11 +90,9 @@ fun MainContentImpl(
                 onActionClick = { symbol ->
                     if (symbol == "=" && uiState.currentExpression.text.isEmpty()) return@ButtonGrid
                     onEvent(HomeUiEvent.OnButtonActionClick(symbol))
-
                     if (symbol == "=" && !(uiState.result == "" || uiState.result == "NaN")){
                         Toast.makeText(context,"Saved in History",Toast.LENGTH_SHORT).show()
                     }
-
                 }
             )
         }

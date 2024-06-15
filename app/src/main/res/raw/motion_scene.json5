@@ -1,65 +1,32 @@
+
 {
-  ConstraintsSets: {
+  ConstraintSets: {
     start: {
       expression_result: {
         width: 'spread',
-        end: [
-          'parent',
-          'end'
-        ],
-        top: [
-          'parent',
-          'bottom',
-          64
-        ]
+        end: ['parent', 'end'],
+        top: ['parent', 'bottom', 64]
       },
-      button_grid : {
-        visibility : 'visible',
+      button_grid: {
+        visibility: 'visible',
         width: 'spread',
-        start: [
-          'parent',
-          'start'
-        ],
-        end: [
-          'parent',
-          'end'
-        ],
-        top: [
-          'expression_result',
-          'bottom',
-          48
-        ]
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['expression_result', 'bottom', 48]
       }
     },
     end: {
       expression_result: {
         width: 'spread',
-        end: [
-          'parent',
-          'end'
-        ],
-        top: [
-          'parent',
-          'bottom',
-          16
-        ]
+        end: ['parent', 'end'],
+        top: ['parent', 'bottom', 16]
       },
-      button_grid : {
-        visibility : 'gone',
+      button_grid: {
+        visibility: 'gone',
         width: 'spread',
-        start: [
-          'parent',
-          'start'
-        ],
-        end: [
-          'parent',
-          'end'
-        ],
-        top: [
-          'expression_result',
-          'bottom',
-          48
-        ]
+        start: ['parent', 'start'],
+        end: ['parent', 'end'],
+        top: ['expression_result', 'bottom', 48]
       }
     }
   }
